@@ -64,9 +64,11 @@ if [[ "$pdef" = "true" ]]; then ARGS="$ARGS -parse_deflines"; fi
 name="$database"
 database='uniprot_database/'"$database"'.fa'
 Dbase="$name"'.fa'
-if [[ -n '/uniprot_database/'"$Dbase"'.gz' ]]; then gunzip '/uniprot_database/'"$Dbase"'.gz'; fi
 
 ##MAKE BLAST INDEX
+test -f "/uniprot_database/$Dbase.gz" && gunzip "/uniprot_database/$Dbase.gz"
+test -f "./uniprot_database/$Dbase.gz" && gunzip "./uniprot_database/$Dbase.gz"
+
 test -f "/uniprot_database/$Dbase" && makeblastdb -in /uniprot_database/$Dbase -dbtype prot -parse_seqids -out $name
 test -f "uniprot_database/$Dbase" && makeblastdb -in uniprot_database/$Dbase -dbtype prot -parse_seqids -out $name
     
